@@ -1,0 +1,25 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.navbar-brand, .nav-link {
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.grid{
+    display: flex;
+}
+
+.items{
+    align-self: flex-start;
+    /* margin-top: 10px; */
+}
