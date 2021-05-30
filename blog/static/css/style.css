@@ -1,12 +1,22 @@
+/* font-family: 'Cinzel Decorative', cursive;
+font-family: 'Handlee', cursive;
+font-family: 'Odibee Sans', cursive;
+font-family: 'Big Shoulders Display', cursive;
+font-family: 'Stint Ultra Condensed', cursive; */
 body {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Handlee', cursive;
 }
 
 .navbar-brand, .nav-link {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Cinzel Decorative', cursive;
     color: #fff;
     font-size: 15px;
     text-transform: uppercase;
+    padding: .2rem;
+}
+
+.profile-title{
+    font-family: 'Cinzel Decorative', cursive;
 }
 
 .img{

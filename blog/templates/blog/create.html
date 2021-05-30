@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row my-2">
+    <div class="col-md-6">
+        <h4>{{ legend }}</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo id facere culpa eum rem amet a recusandae
+            et eos accusantium ex quae, dolores repellendus officiis! Unde molestias provident iste! Quis?</p>
+        <form method="POST">
+            {{ form.hidden_tag()}}
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.content.label(class="form-control-label") }}
+                {% if form.content.errors %}
+                {{ form.content(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.content.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.content(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group d-grid mt-1">
+                {{ form.submit(class='btn btn-primary text-upper')}}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

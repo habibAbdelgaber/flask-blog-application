@@ -3,10 +3,10 @@
 {% block content %}
 <div class="row my-2">
     <div class="col-md-6">
-        <h4 class="py-2"><strong>My Profile</strong></h4>
+        <h4 class="py-2 profile-title"><strong>My Profile</strong></h4>
         <ul class="list-unstyled grid">
             <div>
-                <img src="{{ image_file }}" class="img-fluid rounded-circle img" alt="" srcset="">
+                <img src="{{ image }}" class="img-fluid rounded-circle img" alt="" srcset="">
 
             </div>
             <div class="items mx-1 mt-2">
@@ -17,7 +17,7 @@
         </ul>
         <div>
             <h4 class="py-2 text-uppercase">Update My Profile</h4>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {{ form.hidden_tag()}}
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
@@ -46,13 +46,9 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.img.label(class="form-control-label") }}
-                    {% if form.img.errors %}
-                    {% for error in form.img.errors %}
+                    {{ form.img.label(class="form-control-file pb-1 pt-1") }} <br>
                     {{ form.img }}
-                    <span class="text-danger">{{ error }}</span>
-                    {% endfor %}
-                    {% endif %}
+
                 </div>
                 <div class="form-group d-grid mt-1">
                     {{ form.submit(class='btn btn-primary text-uppercase')}}

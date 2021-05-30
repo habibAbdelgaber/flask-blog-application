@@ -1,16 +1,18 @@
 import secrets
 import os
-from flask import render_template, url_for, request, redirect, flash
+from PIL import Image
+from flask import render_template, url_for, request, redirect, flash, abort
 from blog import app
 
 from blog import app, db, bcrypt, User, Post
-from blog.forms import SignupForm, SigninForm, UpdateProfileForm
+from blog.forms import SignupForm, SigninForm, UpdateProfileForm, PostForm
 from flask_login import current_user, login_required, logout_user, login_user
 from wtforms.validators import ValidationError
 
 @app.route('/', methods=['GET'])
 def home():
-     return render_template('blog/home.html')
+    posts = Post.query.all()
+    return render_template('blog/home.html', posts=posts)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -34,7 +36,7 @@ def signin():
     user = User.query.filter_by(email=form.email.data).first()
     if user and bcrypt.check_password_hash(user.password, form.password.data):
         login_user(user, form.remember.data)
-        flash(f'Welcome back!', category='success')
+        flash(f'Hi, {user.username} welcome back!', category='success')
         next_page = request.args.get('next')
         # if next_page:
         #     return redirect(url_for('account'))
@@ -52,27 +54,35 @@ def logout():
     flash('You have logged out successfuly!', category='success')
     return redirect(url_for('home'))
 
-def picture(pic):
+def picture(image_form):
     # 1- generate hash
-    # 2- assign generated hash to pic
-    # 3- find filename and extension, Hint! use os module
+    gen_token_hex = secrets.token_hex(10)
+    print(gen_token_hex)
+    # 2- find filename and extension, Hint! use os module
+    file_name, file_ext = os.path.splitext(image_form.filename)
+    # 3- concat generated hash to pic
+    image_fn = gen_token_hex + file_ext
     # 4- store the image to the folder of images
+    image_path = os.path.join(app.root_path, 'static/images', image_fn)
     # 5- rezise image Hint! use thumbnail method
+    i_size = (100, 100)
+    i = Image.open(image_form)
+    i.thumbnail(i_size)
+    i.save(image_path)
     # 6- save the image
-    # 7- return filename
-    pass
-
-
+    # image_path.save(image_form)
+    # # 7- return filename
+    return image_fn
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateProfileForm()
-    image_file = url_for('static', filename='images/' + current_user.image)
     if form.validate_on_submit():
         if form.img.data:
-            img = picture(image_file)
-            form.img.data
+            # print(picture('text'))
+            image = picture(form.img.data)
+            current_user.image = image
         current_user.username = form.username.data
         current_user.email  = form.email.data
         db.session.commit()
@@ -82,14 +92,53 @@ def account():
         form.img.data = current_user.image
         form.username.data = current_user.username
         form.email.data = current_user.email
-      
-    return render_template('blog/account.html', title='My account', image_file=image_file, form=form)
+    image = url_for('static', filename='images/' + current_user.image)
+    return render_template('registration/account.html', title='My account', image=image, form=form)
 
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
-    # create a logic how to create a new posts
-    return render_template('blog/create.html')
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('You have created a new post', category='success')
+        return redirect(url_for('home'))
+    return render_template('blog/create.html',title='New Post', legend='New Post', form=form)
+
+@app.route('/detail/<int:id>', methods=['GET'])
+def detail(id):
+    post = Post.query.get(id)
+    return render_template('blog/detail.html', title=post.title, post=post)
 
 
 
+@app.route('/detail/<int:id>/update', methods=['GET', 'POST'])
+@login_required
+def update(id):
+    post = Post.query.get(id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('You have updated the post!', category='success')
+        return redirect(url_for('detail', id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('blog/create.html', title='Update Post', post=post.id, legend='Upadet Post', form=form)
+
+@app.route('/detail/<int:id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete(id):
+    post = Post.query.get(id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('You have deleted the post!', category='success')
+    return redirect(url_for('home'))
