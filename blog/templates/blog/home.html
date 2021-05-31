@@ -10,7 +10,7 @@
                     alt="{{ post.title }}">
             </div>
             <div class="items mx-1 mt-2">
-                <li>Author: {{ post.author.username }}</li>
+                <li>Author: {{ post.author.username}}</li>
                 <li>Date Posted: {{ post.date_created.strftime('%Y-%m-%d') }}</li>
                 <a href="{{ url_for('detail', id=post.id)}}">
                     <h6>{{ post.title }}</h6>

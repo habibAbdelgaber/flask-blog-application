@@ -142,3 +142,14 @@ def delete(id):
     db.session.commit()
     flash('You have deleted the post!', category='success')
     return redirect(url_for('home'))
+
+# Assignment
+"""
+In this view we are going to write a logic that when users
+click on Author's name will take them to that Author's entire posts page.
+1- Create a simple function or route that does these logics:
+a) Filter User by its username.
+b) Filter Post by its Author
+c) Render template that displays specific Author's posts.
+2- From home page where all posts are displaying, add a url link that leads to that Author's posts page!. 
+"""
