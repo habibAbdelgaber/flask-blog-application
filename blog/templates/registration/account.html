@@ -6,8 +6,7 @@
         <h4 class="py-2 profile-title"><strong>My Profile</strong></h4>
         <ul class="list-unstyled grid">
             <div>
-                <img src="{{ image }}" class="img-fluid rounded-circle img" alt="" srcset="">
-
+                <img src="{{ image }}" class="img-fluid rounded-circle img" alt="{{ current_user.username}}" srcset="">
             </div>
             <div class="items mx-1 mt-2">
                 <li>Username: {{ current_user.username}}</li>

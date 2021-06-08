@@ -11,7 +11,9 @@ from wtforms.validators import ValidationError
 
 @app.route('/', methods=['GET'])
 def home():
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_created.desc())\
+    .paginate(page=page, per_page=3) # displaying the posts in descending order
     return render_template('blog/home.html', posts=posts)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -144,12 +146,19 @@ def delete(id):
     return redirect(url_for('home'))
 
 # Assignment
-"""
-In this view we are going to write a logic that when users
-click on Author's name will take them to that Author's entire posts page.
-1- Create a simple function or route that does these logics:
-a) Filter User by its username.
-b) Filter Post by its Author
-c) Render template that displays specific Author's posts.
-2- From home page where all posts are displaying, add a url link that leads to that Author's posts page!. 
-"""
+# In this view we are going to write a logic that when users
+# click on Author's name will take them to that Author's entire posts page.
+# 1- Create a simple function or route that does these logics:
+@app.route('/user/posts/<string:username>')
+def user_posts(username):
+    page = request.args.get('page', 1, type=int)
+    # a) Filter User by its username.
+    user = User.query.filter_by(username=username).first()
+    # b) Filter Post by its Author
+    posts = Post.query.filter_by(author=user)\
+    .order_by(Post.date_created.desc())\
+    .paginate(page=page, per_page=3)
+    # c) Render template that displays specific Author's posts.
+    return render_template('blog/user_posts.html', title='user posts', user=user, posts=posts)
+# 2- From home page where all posts are displaying, add a url link that leads to that Author's posts page!. 
+

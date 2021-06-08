@@ -2,7 +2,10 @@
 
 {% block content %}
 <div class="row my-2">
+
     <div class="col-md-8">
+        <h4 class="ps-5 py-2" style="font-family: 'Courier New', Courier, monospace;">Posted by {{
+            user.username }} ({{ posts.total }}) Posts</h4>
         {% for post in posts.items %}
         <ul class="list-unstyled grid">
             <div>
@@ -10,8 +13,7 @@
                     alt="{{ post.title }}">
             </div>
             <div class="items mx-1 mt-2">
-                <li>Author: <a href="{{url_for('user_posts', username=post.author.username)}}">{{
-                        post.author.username}}</a></li>
+                <li>Author: {{ post.author.username}}</li>
                 <li>Date Posted: {{ post.date_created.strftime('%Y-%m-%d') }}</li>
                 <a href="{{ url_for('detail', id=post.id)}}">
                     <h6>{{ post.title }}</h6>
@@ -26,11 +28,17 @@
     <div class="col-md-6">
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
+        <!-- {% if page_num.next_num %}
+        <a href="{{url_for('user_posts', username=user.username, page=page_num)}}">previous</a>
+        {% endif %} -->
         {% if posts.page == page_num %}
-        <a class="btn btn-primary mb-2" href="{{url_for('home', page=page_num)}}">{{ page_num}}</a>
+        <a class="btn btn-primary mb-2" href="{{url_for('user_posts', username=user.username, page=page_num)}}">{{
+            page_num}}</a>
         {% else %}
-        <a class="btn btn-outline-primary mb-2" href="{{url_for('home', page=page_num)}}">{{ page_num}}</a>
+        <a class="btn btn-outline-primary mb-2"
+            href="{{url_for('user_posts',username=user.username, page=page_num)}}">{{ page_num}}</a>
         {% endif %}
+
         {% endif %}
         {% endfor %}
     </div>
