@@ -15,7 +15,7 @@
             <div class="items mx-1 mt-2">
                 <li>Author: {{ post.author.username}}</li>
                 <li>Date Posted: {{ post.date_created.strftime('%Y-%m-%d') }}</li>
-                <a href="{{ url_for('detail', id=post.id)}}">
+                <a href="{{ url_for('posts.detail', id=post.id)}}">
                     <h6>{{ post.title }}</h6>
                 </a>
                 <p style="font-size: 14px">{{ post.content }}</p>
@@ -32,11 +32,11 @@
         <a href="{{url_for('user_posts', username=user.username, page=page_num)}}">previous</a>
         {% endif %} -->
         {% if posts.page == page_num %}
-        <a class="btn btn-primary mb-2" href="{{url_for('user_posts', username=user.username, page=page_num)}}">{{
+        <a class="btn btn-primary mb-2" href="{{url_for('posts.user_posts', username=user.username, page=page_num)}}">{{
             page_num}}</a>
         {% else %}
         <a class="btn btn-outline-primary mb-2"
-            href="{{url_for('user_posts',username=user.username, page=page_num)}}">{{ page_num}}</a>
+            href="{{url_for('posts.user_posts',username=user.username, page=page_num)}}">{{ page_num}}</a>
         {% endif %}
 
         {% endif %}

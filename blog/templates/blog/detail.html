@@ -13,7 +13,7 @@
                 <li>Author: {{ post.author.username }}</li>
                 <li>Date Posted: {{ post.date_created.strftime('%Y-%m-%d') }}</li>
                 {% if post.author == current_user %}
-                <a href="{{ url_for('update', id=post.id)}}" class="btn btn-secondary">Update</a>
+                <a href="{{ url_for('posts.update', id=post.id)}}" class="btn btn-secondary">Update</a>
                 <!-- Button trigger modal -->
                 <a href="{{url_for('delete', id=post.id)}}" type="button" class="btn btn-danger" data-bs-toggle="modal"
                     data-bs-target="#deleteModal">
@@ -36,9 +36,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <form action="{{ url_for('delete', id=post.id)}}" method="POST">
+                <form action="{{ url_for('posts.delete', id=post.id)}}" method="POST">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
-                    <a href="{{ url_for('delete', id=post.id)}}" type="button" class="btn btn-danger">Yes, Confirm</a>
+                    <a href="{{ url_for('posts.delete', id=post.id)}}" type="button" class="btn btn-danger">Yes,
+                        Confirm</a>
                 </form>
             </div>
         </div>

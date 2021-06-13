@@ -2,3 +2,4 @@ env
 .vscode
 site.db
 __pycache__
+ngrok.exe
