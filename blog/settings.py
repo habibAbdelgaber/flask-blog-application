@@ -17,3 +17,4 @@ class Config(object):
     EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
     EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
     EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL')
+    
