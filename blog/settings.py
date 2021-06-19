@@ -7,7 +7,7 @@ class Config(object):
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     else:
         debug = False
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+        DATABASE_URL = os.environ.get('DATABASE_URL')
        
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     debug = os.environ.get('debug')
