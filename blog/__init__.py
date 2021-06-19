@@ -4,13 +4,13 @@ from .extensions import db, mail, bcrypt, login_manager
 from .settings import Config
 
 
-# def create_app(config_file='settings.py'):
+def create_app(config_file='settings.py'):
 def create_app():
     app = Flask(__name__)
     with app.app_context():
         # init_db()
-        # app.config.from_pyfile(config_file)
-        app.config.from_object(Config)
+        app.config.from_pyfile(config_file)
+        # app.config.from_object(Config)
 
         db.init_app(app)
         mail.init_app(app)
