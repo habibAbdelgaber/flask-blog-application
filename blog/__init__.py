@@ -5,7 +5,7 @@ from .settings import Config
 
 
 def create_app(config_file='settings.py'):
-def create_app():
+# def create_app():
     app = Flask(__name__)
     with app.app_context():
         # init_db()
