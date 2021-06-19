@@ -7,6 +7,7 @@ class Config(object):
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     else:
         # do something
+        pass
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     debug = os.environ.get('debug')
     MAIL_SERVER = os.environ.get('EMAIL_SERVER')
