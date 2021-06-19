@@ -1,7 +1,7 @@
 from .commands import create_tables
 from flask import Flask
 from .extensions import db, mail, bcrypt, login_manager
-from .settings import Config
+# from .settings import Config
 
 
 def create_app(config_file='settings.py'):
