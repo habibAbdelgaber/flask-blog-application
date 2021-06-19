@@ -1,8 +1,8 @@
 from PIL import Image
 import os
 import secrets
-from flask import url_for
-from blog import app, mail
+from flask import url_for, current_app
+from blog.extensions import mail
 from flask_mail import Message
 
 def picture(image_form):
@@ -14,7 +14,7 @@ def picture(image_form):
     # 3- concat generated hash to pic
     image_fn = gen_token_hex + file_ext
     # 4- store the image to the folder of images
-    image_path = os.path.join(app.root_path, 'static/images', image_fn)
+    image_path = os.path.join(current_app.root_path, 'static/images', image_fn)
     # 5- rezise image Hint! use thumbnail method
     i_size = (100, 100)
     i = Image.open(image_form)

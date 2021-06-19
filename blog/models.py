@@ -1,7 +1,8 @@
 from datetime import datetime
-from blog import db, app
+from .extensions import db
+from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from blog import login_manager
+from blog.extensions import login_manager
 from flask_login import UserMixin
 
 
@@ -28,12 +29,12 @@ class User(db.Model, UserMixin):
         5- to check if secret token has been sent and generated, type: token + enter
         6- to find out if token has been expired, type: s.loads(token) + enter
         """
-        s = Serializer(app.config['SECRET_KEY'], exp_sec)
+        s = Serializer(current_app.config['SECRET_KEY'], exp_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
     @staticmethod
     def request_token(token):
-        s = Serializer(app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
         except:
