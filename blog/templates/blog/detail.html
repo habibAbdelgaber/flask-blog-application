@@ -15,8 +15,8 @@
                 {% if post.author == current_user %}
                 <a href="{{ url_for('posts.update', id=post.id)}}" class="btn btn-secondary">Update</a>
                 <!-- Button trigger modal -->
-                <a href="{{url_for('delete', id=post.id)}}" type="button" class="btn btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#deleteModal">
+                <a href="{{url_for('post.delete', id=post.id)}}" type="button" class="btn btn-danger"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">
                     Delete
                 </a>
                 {% endif %}
