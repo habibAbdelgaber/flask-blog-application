@@ -1,0 +1,22 @@
+# Deployment instructions
+1- Create heroku account
+2- Check your email and confirm that you created heroku account
+3- Login to your heroku account
+4- Top right click on square dots menu
+5- Click on dashboard
+6- Top right click on new to create an app
+7- Give your app a name
+
+8- Go to google and download heroku cli on heroku dev center
+9- Go and find heroku cli where you downloaded in your pc and double click
+to install in your computer and click next nex ... to be installed
+
+10- open command prompt and type: heroku login or heroku login -i
+11- you will be asked to enter your credential that you signed up with to heroku platform 
+#Hint! make sure that you have installed Git Version control in your computer or visit: https://git-scm.com/
+12- cd yourproject
+13- git add .
+14- git commit -am "make it better"
+15- git push heroku master
+16- heroku open
+# congratulation that's it!!!
