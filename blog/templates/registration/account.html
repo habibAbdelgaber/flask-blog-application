@@ -12,6 +12,9 @@
                 <li>Username: {{ current_user.username}}</li>
                 <li>Email: {{ current_user.email}}</li>
                 <li>Date Joined: {{ current_user.date_joined.strftime('%Y-%m-%d') }}</li>
+                <a class=' btn btn-danger mt-3' href="{{url_for('users.delete_account', user_id=current_user.id)}}">
+                    Deactivate account
+                </a>
             </div>
         </ul>
         <div>

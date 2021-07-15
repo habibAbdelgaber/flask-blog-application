@@ -76,7 +76,16 @@ def account():
     return render_template('registration/account.html', title='My account', image=image, form=form)
 
 
-
+@users.route('/account/<int:user_id>')
+@login_required
+def delete_account(user_id):
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    flash('Your account has been deactivated!', category='success')
+    return redirect(url_for('main.home'))
+    # return render_template('registration/account.html')
+    
 
 @users.route('/password_reset', methods=['GET', 'POST'])
 def password_request():

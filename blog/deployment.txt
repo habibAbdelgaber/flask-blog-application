@@ -15,8 +15,11 @@ to install in your computer and click next nex ... to be installed
 11- you will be asked to enter your credential that you signed up with to heroku platform 
 #Hint! make sure that you have installed Git Version control in your computer or visit: https://git-scm.com/
 12- cd yourproject
-13- git add .
-14- git commit -am "make it better"
-15- git push heroku master
-16- heroku open
+13- pip freeze > requirements.txt
+14- git init
+15- git status
+16- git add .
+17- git commit -am "make it better"
+18- git push heroku master
+19- heroku open
 # congratulation that's it!!!
